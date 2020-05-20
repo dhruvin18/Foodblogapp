@@ -1,0 +1,32 @@
+<div>
+    <img src="../../../assets/img/logo.jpg" id="icon" alt="Logo"/>
+  </div>
+<form #signupForm="ngForm" (ngSubmit)="signupForm.valid && onSubmit(signupForm)">
+  <input type="text" #fullname="ngModel" [(ngModel)]="userService.selectedUser.fullname" name="fullname" placeholder="FullName" required [ngClass]="{'invalid-textbox' :signupForm.submitted && !fullname.valid }">
+  <div *ngIf="signupForm.submitted && !fullname.valid">
+    <label class="validation-message">This field is required</label>
+  </div>
+  <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :signupForm.submitted && !email.valid }">
+  <div *ngIf="signupForm.submitted && !email.valid">
+    <label *ngIf="email.errors.required" class="validation-message">This field is required</label>
+    <label *ngIf="email.errors.pattern" class="validation-message">Enter a Valid Email address</label>
+  </div>
+  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="Password" required minlength="8" maxlength="16" [ngClass]="{'invalid-textbox' :signupForm.submitted && !password.valid }">
+  <div *ngIf="signupForm.submitted && !password.valid">
+    <label *ngIf="password.errors.required" class="validation-message">This field is required</label>
+    <label *ngIf="password.errors.minlength" class="validation-message">The Password must be atleast 8 characters</label>
+    <label *ngIf="password.errors.maxlength" class="validation-message">The Password must have between 8-16 characters</label>
+  </div>
+  <input type="submit" value="Sign Up">
+</form>
+
+<!-- success message -->
+<div class="success" *ngIf="showSucessMessage">
+  Saved Successfully
+</div>
+
+<!-- error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>
+
