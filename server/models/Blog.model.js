@@ -9,6 +9,12 @@ let Blog = new Schema ({
     subtitle: {
         type: String
     },
+    fullname:{
+        type: String
+    },
+    email: {
+        type: String
+    },
     summary: {
         type: String
     },

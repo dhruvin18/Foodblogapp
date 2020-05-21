@@ -1,7 +1,9 @@
+import { Blog } from './../../shared/blog.model';
+import { UserService } from './../../shared/user.service';
+import { BlogService } from './../../shared/blog.service';
 import { Component, OnInit } from '@angular/core';
-import { BlogService } from '../shared/blog.service';
-import { Blog } from '../shared/blog.model';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-edit-blog',
@@ -9,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./edit-blog.component.css']
 })
 export class EditBlogComponent implements OnInit {
+  userDetails;
+
   temp: Blog;
   _id : string = "";
   title: string = "";
@@ -18,7 +22,7 @@ export class EditBlogComponent implements OnInit {
   description: string = "";
   likes_count : Number = 0;
 
-  constructor(private blogService: BlogService , private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService, private blogService: BlogService , private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       console.log(params);
       console.log(params.blog_id);
@@ -40,10 +44,18 @@ export class EditBlogComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.userService.getUserProfile().subscribe(
+      res => {
+        const temp = 'user';
+        this.userDetails = res[temp]
+      },
+      err => {}
+    );
+    console.log(this.userDetails)
   }
   onSubmit(){
     console.log("THIs is test ", this.title);
-    this.blogService.updateBlog(this._id,this.title,this.subtitle, this.summary, this.description, this.likes_count, this.imageUrl).subscribe(
+    this.blogService.updateBlog(this._id,this.title,this.subtitle, this.userDetails.fullname, this.userDetails.email, this.summary, this.description, this.likes_count, this.imageUrl).subscribe(
       () => {
         this.router.navigate(['/userprofile'])
       }

@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,23 +7,34 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BlogService {
 
+  temp;
   readonly baseURL = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
 
   getAllBlogs() {
     return this.http.get(this.baseURL + '/blogs');
   }
 
+  getSpecificBlogs(fullname : string) {
+    this.temp = {
+      fullname : fullname
+    };
+    return this.http.post(this.baseURL + '/blogs/myBlogs', this.temp);
+  }
+
   getIssueById(id: string) {
     return this.http.get(this.baseURL + '/blogs/' + id);
   }
 
-  addBlog(title: string, subtitle: string, summary: string, description: string, likes_count: Number, image_url: string) {
+  addBlog(title: string, subtitle: string, fullname: string, email:string, summary: string, description: string, likes_count: Number, image_url: string) {
+
     const blog = {
       title : title,
       subtitle : subtitle,
+      fullname : fullname,
+      email : email,
       summary : summary,
       description : description,
       likes_count : likes_count,
@@ -33,10 +45,13 @@ export class BlogService {
     return this.http.post(this.baseURL + '/blogs/add', blog)
   }
 
-  updateBlog(id: string, title: string, subtitle: string, summary: string, description: string, likes_count: Number, image_url: string) {
+  updateBlog(id: string, title: string, subtitle: string,fullname:string, email:string, summary: string, description: string, likes_count: Number, image_url: string) {
+
     const blog = {
       title : title,
       subtitle : subtitle,
+      fullname : fullname,
+      email : email,
       summary : summary,
       description : description,
       likes_count : likes_count,

@@ -1,3 +1,9 @@
+import { MyBlogsComponent } from './user-profile/my-blogs/my-blogs.component';
+import { DetailedBlogComponent } from './user-profile/detailed-blog/detailed-blog.component';
+import { EditBlogComponent } from './user-profile/edit-blog/edit-blog.component';
+import { NewBlogComponent } from './user-profile/new-blog/new-blog.component';
+import { HomeComponent } from './user-profile/home/home.component';
+
 import { Routes } from '@angular/router';
 
 import { UserComponent } from './user/user.component';
@@ -5,10 +11,8 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
+
 import { AuthGuard } from './auth/auth.guard';
-import { NewBlogComponent } from './new-blog/new-blog.component';
-import { EditBlogComponent } from './edit-blog/edit-blog.component';
-import { DetailedBlogComponent } from './detailed-blog/detailed-blog.component';
 
 export const appRoutes: Routes = [
   {
@@ -20,20 +24,28 @@ export const appRoutes: Routes = [
     children: [{ path: '', component: SignInComponent }]
   },
   {
-    path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard]
+    path: 'userprofile', component: UserProfileComponent, children: [{ path : '', component: HomeComponent}], canActivate: [AuthGuard]
   },
   {
     path: '', redirectTo: '/login', pathMatch: 'full'
   },
   {
-    path: 'newblog', component: NewBlogComponent, canActivate: [AuthGuard]
+    path: 'home', component: UserProfileComponent, children: [{ path : '', component: HomeComponent}] , canActivate: [AuthGuard]
   },
   {
-    path: 'editblog', component: EditBlogComponent, canActivate: [AuthGuard]
+    path: 'newblog', component: UserProfileComponent, children: [{ path : '', component: NewBlogComponent}] , canActivate: [AuthGuard]
   },
   {
-    path: 'blogdetails', component: DetailedBlogComponent, canActivate: [AuthGuard]
+    path: 'editblog', component: UserProfileComponent, children: [{ path : '', component: EditBlogComponent}] , canActivate: [AuthGuard]
+  },
+  {
+    path: 'blogdetails', component: UserProfileComponent, children: [{ path : '', component: DetailedBlogComponent}] , canActivate: [AuthGuard]
+  },
+  {
+    path: 'myblogs', component: UserProfileComponent, children: [{ path : '', component: MyBlogsComponent}] , canActivate: [AuthGuard]
   }
+
+
 ];
 
 

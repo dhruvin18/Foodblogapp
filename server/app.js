@@ -44,6 +44,17 @@ router.route('/blogs').get((req, res) => {
     })
 })
 
+// Get all blogs for a specific user
+// user fullname to be provided in request body
+router.route('/blogs/myBlogs').post((req,res) => {
+    Blog.find({fullname : req.body.fullname },(err,blogs) => {
+        if (err)
+            console.log(err)
+        else 
+            res.json(blogs)
+    })
+})
+
 // Get most recent blog
 router.route('/home').get((req, res) => {
     Blog.find((err, blog) => {
@@ -85,6 +96,8 @@ router.route('/blogs/update/:id').post((req, res) => {
         else {
             blog.title = req.body.title
             blog.subtitle = req.body.subtitle
+            blog.fullname = req.body.fullname
+            blog.email = req.body.email
             blog.summary = req.body.summary
             blog.description = req.body.description
             blog.likes_count = req.body.likes_count

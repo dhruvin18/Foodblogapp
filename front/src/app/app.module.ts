@@ -21,10 +21,13 @@ import { UserService } from './shared/user.service';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AboutComponent } from './about/about.component';
-import { NewBlogComponent } from './new-blog/new-blog.component';
-import { EditBlogComponent } from './edit-blog/edit-blog.component';
-import { DetailedBlogComponent } from './detailed-blog/detailed-blog.component';
+
+import { HomeComponent } from './user-profile/home/home.component';
+import { EditBlogComponent } from './user-profile/edit-blog/edit-blog.component';
+import { NewBlogComponent } from './user-profile/new-blog/new-blog.component';
+import { DetailedBlogComponent } from './user-profile/detailed-blog/detailed-blog.component';
+import { MyBlogsComponent } from './user-profile/my-blogs/my-blogs.component';
+
 
 @NgModule({
   declarations: [
@@ -33,10 +36,11 @@ import { DetailedBlogComponent } from './detailed-blog/detailed-blog.component';
     SignUpComponent,
     UserProfileComponent,
     SignInComponent,
-    AboutComponent,
-    NewBlogComponent,
+    HomeComponent,
     EditBlogComponent,
-    DetailedBlogComponent
+    NewBlogComponent,
+    DetailedBlogComponent,
+    MyBlogsComponent,
   ],
   imports: [
     BrowserModule,

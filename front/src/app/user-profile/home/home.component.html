@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <div *ngFor="let blog of blogs">
+                <div class="card shadow my-5 border-0">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="assets/static/{{ blog.image_url }}" class=" img-fluid" alt="...">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ blog.title }}</h3>
+                                <p class="text-right text-muted"> - by {{ blog.fullname }}</p>
+                                <h4 class="card-subtitle mb-2 text-muted">{{ blog.subtitle }}</h4>
+                                <br><br>
+                                <p class="card-text">{{ blog.summary }}</p>
+                                <button class="btn btn-raised btn-info" (click)="displayMore(blog._id)">View more ...</button>
+                            </div>
+                            <div class="card-footer">
+                                <p>Likes : {{ blog.likes_count }}</p>
+                                <p>Time : {{ blog.timestamp }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

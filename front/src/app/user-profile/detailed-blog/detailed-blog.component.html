@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -10,12 +9,14 @@
                     <div class="col-md-7">
                         <div class="card-body">
                             <h3 class="card-title">{{ blog.title }}</h3>
+                            <p class="text-right text-muted"> - by {{ blog.fullname }}</p>
                             <h4 class="card-subtitle mb-2 text-muted">{{ blog.subtitle }}</h4>
                             <br><br>
                             <h5>Summary : </h5>
                             <p class="card-text">{{ blog.summary }}</p>
                             <h5>Description : </h5>
                             <p class="card-text">{{ blog.description }}</p>
+                            <br><br>
                         </div>
                         <div class="card-footer">
                             <p>Likes : {{ blog.likes_count }}</p>
