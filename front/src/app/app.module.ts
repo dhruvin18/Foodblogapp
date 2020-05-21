@@ -27,6 +27,7 @@ import { EditBlogComponent } from './user-profile/edit-blog/edit-blog.component'
 import { NewBlogComponent } from './user-profile/new-blog/new-blog.component';
 import { DetailedBlogComponent } from './user-profile/detailed-blog/detailed-blog.component';
 import { MyBlogsComponent } from './user-profile/my-blogs/my-blogs.component';
+import { RestaurantComponent } from './user-profile/restaurant/restaurant.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { MyBlogsComponent } from './user-profile/my-blogs/my-blogs.component';
     NewBlogComponent,
     DetailedBlogComponent,
     MyBlogsComponent,
+    RestaurantComponent,
   ],
   imports: [
     BrowserModule,

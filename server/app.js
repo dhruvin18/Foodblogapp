@@ -2,6 +2,7 @@
 require('./models/db');
 require('./config/passportConfig');
 
+const mongoose = require('mongoose');
 const express=require('express');
 const bodyParser=require('body-parser');
 const cors=require('cors');
@@ -134,8 +135,58 @@ app.use('/', router)
 // const ctrluser=require('./controllers/user.controller');
 // app.post('/add/blogs', ctrluser.addBlog); 
 
+// for making api call to fetch data from zomato api
+require('./models/restaurant.model');
+const Restaurant=mongoose.model('Restaurant');
 
-
-
-
-
+router.route('/restaurants').get((req, res) => {
+    Restaurant.find((err, restaurants) => {
+        if (err)
+            console.log(err);
+        else 
+            res.json(restaurants);
+    });
+});
+var header= {
+    'user-key':"dcafb6b0b53785d24b5398b33c9a3475"
+};
+var data;
+const request=require('request');
+app.get('/makeApiCall', (req,res)=> {
+    request( {'headers': header,'url': 'https://developers.zomato.com/api/v2.1/search?entity_id=3&entity_type=city', json: true}, (err,res,body) => {
+    if(err){
+        console.log(err);
+    }
+    else{
+        data=body['restaurants'];
+        console.log(data);
+        for(i=0; i<20;i++){
+            restaurant=data[i]['restaurant'];
+            var resto=new Restaurant();
+            resto._id= restaurant['id'],
+            resto.name= restaurant['name'],
+            resto.cuisines= restaurant['cuisines'],
+            resto.address= restaurant['location']['address'],
+            resto.timings= restaurant['timings'],
+            resto.costfortwo= restaurant['average_cost_for_two'], 
+            resto.locality= restaurant['location']['locality_verbose'],
+            resto.url= restaurant['url'],
+            resto.highlights= restaurant['highlights'],
+            resto.image= restaurant['thumb'],
+            resto.phoneNumbers= restaurant['phone_numbers'],
+            resto.rating = restaurant['user_rating']['aggregate_rating'],
+            resto.establishment= restaurant['establishment']
+            resto.save((err,doc)=>{
+                if(!err){
+                    if(i==19){
+                        res.redirect('success');
+                    }
+                }
+                else{
+                    console.log(err)
+                }
+            });
+        }
+    }
+    });
+});

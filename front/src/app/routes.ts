@@ -1,3 +1,4 @@
+import { RestaurantComponent } from './user-profile/restaurant/restaurant.component';
 import { MyBlogsComponent } from './user-profile/my-blogs/my-blogs.component';
 import { DetailedBlogComponent } from './user-profile/detailed-blog/detailed-blog.component';
 import { EditBlogComponent } from './user-profile/edit-blog/edit-blog.component';
@@ -43,6 +44,9 @@ export const appRoutes: Routes = [
   },
   {
     path: 'myblogs', component: UserProfileComponent, children: [{ path : '', component: MyBlogsComponent}] , canActivate: [AuthGuard]
+  },
+  {
+    path: 'restaurants', component: UserProfileComponent, children: [{ path : '', component: RestaurantComponent}] , canActivate: [AuthGuard]
   }
 
 

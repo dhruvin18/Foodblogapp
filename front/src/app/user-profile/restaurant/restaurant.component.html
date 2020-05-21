@@ -1,0 +1,59 @@
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<div class="container-fluid">
+    <div class="row">
+      <div *ngFor="let restaurant of restaurants" class="col-md-3">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{restaurant.image}}">
+            <!-- <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">favorite</i></a> -->
+          </div>
+          <div class="card-content">
+              <span class="card-title black-text"><h4><a href="{{restaurant.url}}" target="_blank" class="black-text">{{restaurant.name}}</a></h4></span>
+             <h6 class="subtitle">{{restaurant.locality}}</h6>
+
+             <p  *ngIf= "restaurant.rating >= 4">Rating: <b style="color: seagreen; font-size: 1.5rem">{{restaurant.rating}}  <i class="material-icons" id="ratingicons">star</i></b></p>
+             <p  *ngIf= "restaurant.rating < 4 && restaurant.rating > 3">Rating: <b style="color: orangered; font-size: 1.5rem">{{restaurant.rating}}  <i class="material-icons" id="ratingicons">star</i></b></p>
+             <p  *ngIf= "restaurant.rating <= 3">Rating: <b style="color: red; font-size: 1.5rem">{{restaurant.rating}}  <i class="material-icons" id="ratingicons">star</i></b></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .card-content {
+      padding: 4px !important;
+      padding-top: 2px !important;
+    }
+    .card-title {
+      padding: 2px;
+      margin-top: 0%;
+    }
+    #ratingicon {
+      height: 550px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+    .card-image img{
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+    .material-icons {
+      position: relative;
+    /* Adjust these values accordingly */
+      top: 3px;
+      right: 3px;
+    }
+    .card {
+      height: 550px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    .card:hover {
+     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  </style>
