@@ -35,6 +35,7 @@ app.use((err,req,res,next)=>{
 const Blog = require('./models/Blog.model')
 const router = express.Router()
 
+
 // Get all blogs
 router.route('/blogs').get((req, res) => {
     Blog.find((err, blogs) => {
@@ -138,7 +139,10 @@ app.use('/', router)
 // for making api call to fetch data from zomato api
 require('./models/restaurant.model');
 const Restaurant=mongoose.model('Restaurant');
-
+const sorting={user_rating: -1}
+const options= {
+    "sort": ['user_rating','desc']
+}
 router.route('/restaurants').get((req, res) => {
     Restaurant.find((err, restaurants) => {
         if (err)
@@ -148,12 +152,13 @@ router.route('/restaurants').get((req, res) => {
     });
 });
 var header= {
-    'user-key':"dcafb6b0b53785d24b5398b33c9a3475"
+    'user-key':"dcafb6b0b53785d24b5398b33c9a3475",
 };
+
 var data;
 const request=require('request');
 app.get('/makeApiCall', (req,res)=> {
-    request( {'headers': header,'url': 'https://developers.zomato.com/api/v2.1/search?entity_id=3&entity_type=city', json: true}, (err,res,body) => {
+    request( {'headers': header,'url': 'https://developers.zomato.com/api/v2.1/search?entity_id=3&entity_type=city&q=Mumbai&start=60', json: true}, (err,res,body) => {
     if(err){
         console.log(err);
     }
@@ -190,3 +195,23 @@ app.get('/makeApiCall', (req,res)=> {
     }
     });
 });
+
+//file upload in newblog form
+const multer=require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './../front/src/assets/static');
+     },
+    filename: function (req, file, cb) {
+        cb(null , file.originalname);
+    }
+});
+const upload= multer({storage: storage});
+app.post('/single', upload.single('profile'), (req, res) => {
+    console.log('file uploading');
+    try {
+      res.send(req.file);
+    }catch(err) {
+      res.send(400);
+    }
+  });
