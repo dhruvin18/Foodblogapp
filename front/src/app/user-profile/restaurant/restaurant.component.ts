@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class RestaurantComponent implements OnInit {
 
   restaurants: Restaurant[];
-  
+
   constructor(private restaurantService: RestaurantService) { }
 
   ngOnInit(): void {
