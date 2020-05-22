@@ -5,7 +5,7 @@
                 <div class="card shadow my-5 border-0" >
                     <div class="row">
                         <div class="col-md-5">
-                            <img src="../../../assets/static/{{blog.image_url}}" class=" img-fluid" alt="...">
+                            <img src="./assets/static/{{blog.image_url}}" class=" img-fluid w-100" alt="...">
                         </div>
                         <div class="col-md-7">
                             <div class="card-body">
@@ -13,13 +13,16 @@
                                 <h5 class="card-subtitle mb-2 text-muted">{{ blog.subtitle }}</h5>
                                 <p class="text-right text-muted"> - by {{ blog.fullname }}</p>
                                 <p class="text-left text-muted"> {{ blog.timestamp | date:'mediumDate' }} </p>
-                                <br><br>
+                                <br>
+                                <h5>Summary : </h5>
                                 <p class="card-text">{{ blog.summary }}</p>
-                                <button class="btn btn-raised btn-info" (click)="displayMore(blog._id)">View more ...</button>
+                                <h5>Description : </h5>
+                                <div class="overflowTest">{{ blog.description }}</div>
+                                <button class="btn btn-raised btn-info mt-2 mb-3" (click)="displayMore(blog._id)">View more ...</button>
                             </div>
                             <div class="card-footer">
-                                <button [disabled]="blog.likedBy.indexOf(userDetails.fullname) > -1" class=" btn btn-raised btn-success mr-3" (click)="likeBlog(blog._id)"> {{ blog.likes }} Likes <i class="material-icons md-18">thumb_up</i></button>
-                                <button [disabled]="blog.dislikedBy.indexOf(userDetails.fullname) > -1" class=" btn btn-raised btn-warning mr-3" (click)="dislikeBlog(blog._id)" > {{ blog.dislikes }} Dislikes <i class="material-icons md-18">thumb_down</i></button>
+                                <button [disabled]="blog.likedBy.indexOf(userDetails.fullname) > -1" class=" btn btn-raised btn-success mr-3" (click)="likeBlog(blog._id)"> {{ blog.likes }} <i class="material-icons md-18">thumb_up</i></button>
+                                <button [disabled]="blog.dislikedBy.indexOf(userDetails.fullname) > -1" class=" btn btn-raised btn-warning mr-3" (click)="dislikeBlog(blog._id)" > {{ blog.dislikes }} <i class="material-icons md-18">thumb_down</i></button>
                             </div>
                         </div>
                     </div>

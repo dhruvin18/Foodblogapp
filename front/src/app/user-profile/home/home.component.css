@@ -1,1 +1,8 @@
 .material-icons.md-18 { font-size: 18px; }
+
+div.overflowTest {
+    max-height: 200px;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: pre-wrap 
+  }
