@@ -11,12 +11,14 @@ import { NavigationExtras } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  blogs : Blog[]
+  blogs: Blog[]
 
-  constructor(private blogService : BlogService, private router: Router) { }
+  constructor(private blogService: BlogService, private router: Router) {
+    this.fetchBlogs();
+  }
 
   ngOnInit(): void {
-    this.fetchBlogs()
+    this.fetchBlogs();
   }
 
   displayMore(id: string) {

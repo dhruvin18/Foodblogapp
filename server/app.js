@@ -198,12 +198,14 @@ app.get('/makeApiCall', (req,res)=> {
 
 //file upload in newblog form
 const multer=require('multer');
+var filename;
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, './../front/src/assets/static');
      },
     filename: function (req, file, cb) {
-        cb(null , file.originalname);
+        filename=Date.now()+file.originalname;
+        cb(null ,filename );
     }
 });
 const upload= multer({storage: storage});
@@ -211,7 +213,6 @@ app.post('/single', upload.single('profile'), (req, res) => {
     console.log('file uploading');
     console.log(req.file.filename);
     try {
-        console.log(req.file);
       res.send(req.file);
     }catch(err) {
       res.send(400);
