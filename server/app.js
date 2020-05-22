@@ -238,7 +238,7 @@ const options= {
     "sort": ['user_rating','desc']
 }
 router.route('/restaurants').get((req, res) => {
-    Restaurant.find((err, restaurants) => {
+    Restaurant.find().sort({rating:-1}).exec((err, restaurants) => {
         if (err)
             console.log(err);
         else 
@@ -248,6 +248,17 @@ router.route('/restaurants').get((req, res) => {
 var header= {
     'user-key':"dcafb6b0b53785d24b5398b33c9a3475",
 };
+router.route('/restaurant/:id').get((req,res) => {
+    console.log("Single restaurant fetch with id: "+ req.params.id);
+    Restaurant.findById({_id: req.params.id}, (err,restaurant) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(restaurant);
+        }
+    })
+})
 
 var data;
 const request=require('request');

@@ -13,10 +13,10 @@ import { NavigationExtras } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   userDetails;
-  currentblog : Blog
-  blogs : Blog[]
+  currentblog: Blog;
+  blogs: Blog[];
 
-  constructor(private userService: UserService, private blogService : BlogService, private router: Router) { }
+  constructor(private userService: UserService, private blogService: BlogService, private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getUserProfile().subscribe(

@@ -9,11 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./detailed-blog.component.css']
 })
 export class DetailedBlogComponent implements OnInit {
-  
+
   _id: string;
   blog: Blog;
 
-  constructor(private blogService : BlogService, private route : ActivatedRoute) {
+  constructor(private blogService: BlogService, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
       console.log(params);
       console.log(params.blog_id);
