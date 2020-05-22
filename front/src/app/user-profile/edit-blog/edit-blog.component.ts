@@ -3,6 +3,8 @@ import { UserService } from './../../shared/user.service';
 import { BlogService } from './../../shared/blog.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -12,6 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditBlogComponent implements OnInit {
   userDetails;
+  uploadForm: FormGroup;
+  serverUrl = 'http://localhost:3000/single';
 
   temp: Blog;
   _id : string = "";
@@ -22,7 +26,7 @@ export class EditBlogComponent implements OnInit {
   description: string = "";
   likes_count : Number = 0;
 
-  constructor(private userService: UserService, private blogService: BlogService , private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService, private blogService: BlogService , private route: ActivatedRoute, private router: Router,private formBuilder: FormBuilder, private httpClient: HttpClient) {
     this.route.queryParams.subscribe(params => {
       console.log(params);
       console.log(params.blog_id);
@@ -44,6 +48,9 @@ export class EditBlogComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.uploadForm = this.formBuilder.group({
+      profile: ['']
+    });
     this.userService.getUserProfile().subscribe(
       res => {
         const temp = 'user';
@@ -60,6 +67,22 @@ export class EditBlogComponent implements OnInit {
         this.router.navigate(['/userprofile'])
       }
     )
+  }
+  onSubmitImage() {
+    const formData = new FormData();
+    formData.append('profile', this.uploadForm.get('profile').value);
+    console.log('hi');
+    console.log(formData);
+    this.httpClient.post(this.serverUrl, formData).subscribe(
+      (res) => {this.imageUrl = res['filename']; },
+      (err) => console.log(err)
+    );
+  }
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadForm.get('profile').setValue(file);
+    }
   }
 
 }

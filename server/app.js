@@ -209,7 +209,9 @@ const storage = multer.diskStorage({
 const upload= multer({storage: storage});
 app.post('/single', upload.single('profile'), (req, res) => {
     console.log('file uploading');
+    console.log(req.file.filename);
     try {
+        console.log(req.file);
       res.send(req.file);
     }catch(err) {
       res.send(400);

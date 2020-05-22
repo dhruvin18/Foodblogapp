@@ -21,6 +21,14 @@
             <div class="form-group">
                 <label for="imageUrl">Image Url</label>
                 <input type="text" class="form-control" id="imageUrl" [(ngModel)]="imageUrl" name="imageUrl">
+                <form [formGroup] = "uploadForm" (ngSubmit)="onSubmitImage()">
+                  <div>
+                    <input type="file" name="profile" (change)="onFileSelect($event)" />
+                  </div>
+                  <div>
+                    <button type="submit">Upload</button>
+                  </div>
+                </form>
             </div>
         </form>
     </div>

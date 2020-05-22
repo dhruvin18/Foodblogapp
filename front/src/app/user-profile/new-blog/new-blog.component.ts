@@ -14,7 +14,7 @@ export class NewBlogComponent implements OnInit {
 
   userDetails;
   uploadForm: FormGroup;
-  serverUrl = 'localhost:3000/single';
+  serverUrl = 'http://localhost:3000/single';
 
   title: string = "";
   subtitle: string = "";
@@ -43,8 +43,9 @@ export class NewBlogComponent implements OnInit {
   }
   onSubmit() {
     const formData = new FormData();
-    formData.append('file', this.uploadForm.get('profile').value);
-
+    formData.append('profile', this.uploadForm.get('profile').value);
+    console.log('hi');
+    console.log(formData);
     this.httpClient.post(this.serverUrl, formData).subscribe(
       (res) => {this.imageUrl = res['filename']; },
       (err) => console.log(err)
