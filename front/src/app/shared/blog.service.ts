@@ -1,3 +1,4 @@
+import { Blog } from './blog.model';
 import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -28,7 +29,7 @@ export class BlogService {
     return this.http.get(this.baseURL + '/blogs/' + id);
   }
 
-  addBlog(title: string, subtitle: string, fullname: string, email:string, summary: string, description: string, likes_count: Number, image_url: string) {
+  addBlog(title: string, subtitle: string, fullname: string, email:string, summary: string, description: string, likes: Number,dislikes: Number, image_url: string) {
 
     const blog = {
       title : title,
@@ -37,7 +38,8 @@ export class BlogService {
       email : email,
       summary : summary,
       description : description,
-      likes_count : likes_count,
+      likes : likes,
+      dislikes : dislikes,
       timestamp : Date.now(),
       image_url : image_url
     }
@@ -45,7 +47,7 @@ export class BlogService {
     return this.http.post(this.baseURL + '/blogs/add', blog)
   }
 
-  updateBlog(id: string, title: string, subtitle: string,fullname:string, email:string, summary: string, description: string, likes_count: Number, image_url: string) {
+  updateBlog(id: string, title: string, subtitle: string,fullname:string, email:string, summary: string, description: string, likedBy: Array<string>, likes: Number, dislikedBy: Array<string>,dislikes: Number, image_url: string) {
 
     const blog = {
       title : title,
@@ -54,7 +56,10 @@ export class BlogService {
       email : email,
       summary : summary,
       description : description,
-      likes_count : likes_count,
+      likedBy : likedBy,
+      likes : likes,
+      dislikedBy : dislikedBy,
+      dislikes : dislikes,
       timestamp : Date.now(),
       image_url : image_url
     }
@@ -65,5 +70,21 @@ export class BlogService {
   deleteBlog(id: string) {
     const url = this.baseURL + '/blogs/delete/' + id;
     return this.http.get(url);
+  }
+
+  likeBlog(id : string, fullname : string) {
+    const url = this.baseURL + '/blogs/like/' + id;
+    const temp = {
+      fullname : fullname
+    }
+    return this.http.put(url,temp);
+  }
+
+  dislikeBlog(id: string, fullname : string){
+    const url = this.baseURL + '/blogs/dislike/' + id;
+    const temp = {
+      fullname : fullname
+    }
+    return this.http.put(url,temp);
   }
 }

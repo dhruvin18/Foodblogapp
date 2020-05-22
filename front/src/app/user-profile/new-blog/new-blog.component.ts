@@ -36,7 +36,7 @@ export class NewBlogComponent implements OnInit {
     );
   }
   addMeal() {
-    this.blogService.addBlog(this.title, this.subtitle, this.userDetails.fullname, this.userDetails.email, this.summary, this.description, 0, this.imageUrl).subscribe( () => {
+    this.blogService.addBlog(this.title, this.subtitle, this.userDetails.fullname, this.userDetails.email, this.summary, this.description, 0, 0, this.imageUrl).subscribe( () => {
         this.router.navigate(['/userprofile']);
       }
     );

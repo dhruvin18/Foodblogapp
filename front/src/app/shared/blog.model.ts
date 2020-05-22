@@ -6,7 +6,10 @@ export interface Blog {
   email: string;
   summary: string;
   description: string;
-  likes_count: Number;
+  likedBy: Array<string>;
+  likes: Number;
+  dislikedBy: Array<string>;
+  dislikes: Number;
   timestamp: Date;
   image_url: string;
 }

@@ -1,3 +1,4 @@
+import { UserService } from './../../shared/user.service';
 import { BlogService } from './../../shared/blog.service';
 import { Blog } from './../../shared/blog.model';
 import { Component, OnInit } from '@angular/core';
@@ -11,14 +12,23 @@ import { NavigationExtras } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  blogs: Blog[]
+  userDetails;
+  currentblog : Blog
+  blogs : Blog[]
 
-  constructor(private blogService: BlogService, private router: Router) {
-    this.fetchBlogs();
-  }
+  constructor(private userService: UserService, private blogService : BlogService, private router: Router) { }
 
   ngOnInit(): void {
-    this.fetchBlogs();
+    this.userService.getUserProfile().subscribe(
+      res => {
+        const temp = 'user';
+        this.userDetails = res[temp]
+        console.log("INside onInit",this.userDetails)
+      },
+      err => {}
+    );
+    console.log("Outside onInit",this.userDetails)
+    this.fetchBlogs()
   }
 
   displayMore(id: string) {
@@ -55,6 +65,44 @@ export class HomeComponent implements OnInit {
         this.fetchBlogs();
       });
     }
+  }
+
+  likeBlog(id:string) {
+    this.userService.getUserProfile().subscribe(
+      res => {
+        const temp = 'user';
+        this.userDetails = res[temp]
+        this.blogService.getIssueById(id).subscribe(
+          (res) => {
+            console.log(res);
+            this.currentblog = res as Blog;
+          }
+        );
+        this.blogService.likeBlog(id, this.userDetails.fullname).subscribe(()=>{
+          this.fetchBlogs();
+        })
+      },
+      err => {}
+    );
+  }
+
+  dislikeBlog(id:string) {
+    this.userService.getUserProfile().subscribe(
+      res => {
+        const temp = 'user';
+        this.userDetails = res[temp]
+        this.blogService.getIssueById(id).subscribe(
+          (res) => {
+            console.log(res);
+            this.currentblog = res as Blog;
+          }
+        );
+        this.blogService.dislikeBlog(id, this.userDetails.fullname).subscribe(()=>{
+          this.fetchBlogs();
+        })
+      },
+      err => {}
+    );
   }
 
 }
