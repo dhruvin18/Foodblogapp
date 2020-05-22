@@ -7,13 +7,15 @@
     </a>
     
     <div class="collapse navbar-collapse navbar-nav">
-        <a class="nav-item nav-link" [routerLink]="'/home'">Home</a>
-        <a class="nav-item nav-link" [routerLink]="'/newblog'">+New Blog</a>
-        <a class="nav-item nav-link" [routerLink]="'/myblogs'">My Blogs</a>
-        <a class="nav-item nav-link" [routerLink]="'/restaurants'">Restaurants</a>
+        <a class="nav-item nav-link" routerLinkActive="active-link" [routerLink]="'/home'">Home</a>
+        <a class="nav-item nav-link" routerLinkActive="active-link" [routerLink]="'/newblog'">+New Blog</a>
+        <a class="nav-item nav-link" routerLinkActive="active-link" [routerLink]="'/myblogs'">My Blogs</a>
+        <a class="nav-item nav-link" routerLinkActive="active-link" [routerLink]="'/restaurants'">Restaurants</a>
     </div>
 
     <h6 class="black-text">Welcome {{userDetails.fullname }}  </h6>
     <button class="btn btn-dark ml-3" id="lgbtn" (click)="onLogout()">Logout</button>
 </nav>
 <router-outlet></router-outlet>
+
+<button *ngIf="isShow" class="btn btn-dark btn-raised mybutton" (click)="gotoTop()"><i class="material-icons md-50">keyboard_arrow_up</i></button>

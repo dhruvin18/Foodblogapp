@@ -1,0 +1,6 @@
+div.overflowTest {
+    max-height: fit-content;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: pre-wrap 
+  }

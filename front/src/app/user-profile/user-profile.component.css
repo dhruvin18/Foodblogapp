@@ -1,0 +1,14 @@
+button.mybutton {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    text-align: center;
+    border-radius: 5px;
+    outline: none;
+}
+
+.active-link{
+    background-color:gray;
+}
+
+.material-icons.md-50 { font-size: 50px; }

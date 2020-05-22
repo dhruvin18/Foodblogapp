@@ -12,28 +12,28 @@
           </div>
           <div class="form-group">
               <label for="summary">Summary</label>
-              <input type="text" class="form-control" id="summary" [(ngModel)]="summary" name="summary">
+              <textarea class="form-control md-textarea-auto" id="summary" [(ngModel)]="summary" name="summary" rows="3"></textarea>
           </div>
           <div class="form-group">
               <label for="description">Description</label>
-              <input type="text" class="form-control" id="description" [(ngModel)]="description" name="description">
+              <textarea class="form-control md-textarea-auto" id="description" [(ngModel)]="description" name="description" rows="10"></textarea>
           </div>
           <div class="form-group">
               <label for="imageUrl">Image Url</label>
-              <input type="text" class="form-control" id="imageUrl" [(ngModel)]="imageUrl" name="imageUrl">
+              <input type="text" class="form-control mb-2" id="imageUrl" [(ngModel)]="imageUrl" name="imageUrl">
               <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()">
                 <div>
-                  <input type="file" name="profile" (change)="onFileSelect($event)" />
+                  <input class="btn btn-outline-primary" type="file" name="profile" (change)="onFileSelect($event)" />
                 </div>
                 <div>
-                  <button type="submit">Upload</button>
+                  <button type="submit" class="btn btn-outline-primary">Upload</button>
                 </div>
               </form>
           </div>
       </form>
   </div>
   <div class="card-footer">
-      <button type="submit" class="btn btn-raised btn-success mr-3" (click)="addMeal()">Post</button>
-      <a class="btn btn-raised btn-primary" href="userprofile">Cancel</a>
+      <button type="submit" class="btn btn-block btn-raised btn-success" (click)="addMeal()">Post</button>
+      <a class="btn btn-block btn-raised btn-secondary" href="userprofile">Cancel</a>
   </div>
 </div>
