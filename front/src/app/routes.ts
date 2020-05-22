@@ -14,6 +14,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 import { AuthGuard } from './auth/auth.guard';
+import { DetailedRestaurantComponent } from './user-profile/detailed-restaurant/detailed-restaurant.component';
 
 export const appRoutes: Routes = [
   {
@@ -47,7 +48,10 @@ export const appRoutes: Routes = [
   },
   {
     path: 'restaurants', component: UserProfileComponent, children: [{ path : '', component: RestaurantComponent}] , canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'restaurant', component: UserProfileComponent, children: [{ path : '', component: DetailedRestaurantComponent}] , canActivate: [AuthGuard]
+  },
 
 
 ];
