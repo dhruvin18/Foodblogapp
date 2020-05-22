@@ -21,8 +21,21 @@ let Blog = new Schema ({
     description: {
         type: String
     },
-    likes_count: {
-        type: Number
+    likedBy:{
+        type : Array,
+        default: []
+    },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    dislikedBy:{
+        type: Array,
+        default: []
+    },
+    dislikes:{
+        type : Number,
+        default: 0
     },
     timestamp:{
         type : Number

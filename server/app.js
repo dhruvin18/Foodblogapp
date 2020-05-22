@@ -101,7 +101,10 @@ router.route('/blogs/update/:id').post((req, res) => {
             blog.email = req.body.email
             blog.summary = req.body.summary
             blog.description = req.body.description
-            blog.likes_count = req.body.likes_count
+            blog.likedBy = req.body.likedBy
+            blog.dislikedBy = req.body.dislikedBy
+            blog.likes = req.body.likes
+            blog.dislikes = req.body.dislikes
             blog.image_url = req.body.image_url
             blog.timestamp = req.body.timestamp
 
@@ -121,6 +124,97 @@ router.route('/blogs/delete/:id').get((req, res) => {
             res.json(err)
         else 
             res.json('Removed Successfully')
+    })
+})
+
+//Like a blog
+router.route('/blogs/like/:id').put((req,res)=>{
+    Blog.findById(req.params.id,(err,blog)=>{
+        if (!blog)
+            return next(new Error('Could not load Document'))
+        else {
+            console.log("FOUND BlOG");
+            console.log(blog);
+            if(blog.likedBy.includes(req.body.fullname)){
+                res.json({ success: false, message: 'You already liked this post.' }); // Return error message
+            }
+            else{
+                // Check if user who liked post has previously disliked a post
+                if (blog.dislikedBy.includes(req.body.fullname)) {
+                    blog.dislikes--; // Reduce the total number of dislikes
+                    const arrayIndex = blog.dislikedBy.indexOf(req.body.fullname); // Get the index of the username in the array for removal
+                    blog.dislikedBy.splice(arrayIndex, 1); // Remove user from array
+                    blog.likes++; // Increment likes
+                    blog.likedBy.push(req.body.fullname); // Add username to the array of likedBy array
+                    // Save blog post data
+                    blog.save((err) => {
+                      // Check if error was found
+                      if (err) {
+                        res.json({ success: false, message: 'Something went wrong.' }); // Return error message
+                      } else {
+                        res.json({ success: true, message: 'Blog liked!' }); // Return success message
+                      }
+                    });
+                } else {
+                    blog.likes++; // Increment likes
+                    blog.likedBy.push(req.body.fullname); // Add liker's username into array of likedBy
+                    // Save blog post
+                    blog.save((err) => {
+                      if (err) {
+                        res.json({ success: false, message: 'Something went wrong.' }); // Return error message
+                      } else {
+                        res.json({ success: true, message: 'Blog liked!' }); // Return success message
+                      }
+                    });
+                }
+            }
+        }
+    })
+})
+
+//Dislike a blog
+router.route('/blogs/dislike/:id').put((req,res)=>{
+    Blog.findById(req.params.id,(err,blog)=>{
+        if(!blog){
+            return next(new Error('Could not load Document'))
+        }else{
+            console.log("FOUND BlOG");
+            console.log(blog);
+            // Check if user who disliked post has already disliked it before
+            if (blog.dislikedBy.includes(req.body.fullname)) {
+                res.json({ success: false, message: 'You already disliked this post.' }); // Return error message
+            } else {
+                // Check if user has previous disliked this post
+                if (blog.likedBy.includes(req.body.fullname)) {
+                  blog.likes--; // Decrease likes by one
+                  const arrayIndex = blog.likedBy.indexOf(req.body.fullname); // Check where username is inside of the array
+                  blog.likedBy.splice(arrayIndex, 1); // Remove username from index
+                  blog.dislikes++; // Increase dislikeds by one
+                  blog.dislikedBy.push(req.body.fullname); // Add username to list of dislikers
+                  // Save blog data
+                  blog.save((err) => {
+                    // Check if error was found
+                    if (err) {
+                      res.json({ success: false, message: 'Something went wrong.' }); // Return error message
+                    } else {
+                      res.json({ success: true, message: 'Blog disliked!' }); // Return success message
+                    }
+                  });
+                } else {
+                  blog.dislikes++; // Increase likes by one
+                  blog.dislikedBy.push(req.body.fullname); // Add username to list of likers
+                  // Save blog data
+                  blog.save((err) => {
+                    // Check if error was found
+                    if (err) {
+                      res.json({ success: false, message: 'Something went wrong.' }); // Return error message
+                    } else {
+                      res.json({ success: true, message: 'Blog disliked!' }); // Return success message
+                    }
+                  });
+                }
+            }
+        }
     })
 })
 

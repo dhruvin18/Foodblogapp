@@ -10,15 +10,16 @@
                         <div class="col-md-7">
                             <div class="card-body">
                                 <h3 class="card-title">{{ blog.title }}</h3>
+                                <h5 class="card-subtitle mb-2 text-muted">{{ blog.subtitle }}</h5>
                                 <p class="text-right text-muted"> - by {{ blog.fullname }}</p>
-                                <h4 class="card-subtitle mb-2 text-muted">{{ blog.subtitle }}</h4>
+                                <p class="text-left text-muted"> {{ blog.timestamp | date:'mediumDate' }} </p>
                                 <br><br>
                                 <p class="card-text">{{ blog.summary }}</p>
                                 <button class="btn btn-raised btn-info" (click)="displayMore(blog._id)">View more ...</button>
                             </div>
                             <div class="card-footer">
-                                <p>Likes : {{ blog.likes_count }}</p>
-                                <p>Time : {{ blog.timestamp }}</p>
+                                <button [disabled]="blog.likedBy.indexOf(userDetails.fullname) > -1" class=" btn btn-raised btn-success mr-3" (click)="likeBlog(blog._id)"> {{ blog.likes }} Likes <i class="material-icons md-18">thumb_up</i></button>
+                                <button [disabled]="blog.dislikedBy.indexOf(userDetails.fullname) > -1" class=" btn btn-raised btn-warning mr-3" (click)="dislikeBlog(blog._id)" > {{ blog.dislikes }} Dislikes <i class="material-icons md-18">thumb_down</i></button>
                             </div>
                         </div>
                     </div>

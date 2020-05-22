@@ -20,7 +20,10 @@ export class EditBlogComponent implements OnInit {
   imageUrl: string = "";
   summary: string = "";
   description: string = "";
-  likes_count : Number = 0;
+  likes : Number ;
+  dislikes : Number ;
+  likedBy : Array<string>;
+  dislikedBy : Array<string>;
 
   constructor(private userService: UserService, private blogService: BlogService , private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
@@ -36,6 +39,10 @@ export class EditBlogComponent implements OnInit {
         this.title = this.temp.title;
         this.subtitle = this.temp.subtitle;
         this.description = this.temp.description;
+        this.likes = this.temp.likes;
+        this.likedBy = this.temp.likedBy;
+        this.dislikedBy = this.temp.dislikedBy;
+        this.dislikes = this.temp.dislikes;
         this.summary = this.temp.summary;
         this.imageUrl = this.temp.image_url;
       }
@@ -55,7 +62,7 @@ export class EditBlogComponent implements OnInit {
   }
   onSubmit(){
     console.log("THIs is test ", this.title);
-    this.blogService.updateBlog(this._id,this.title,this.subtitle, this.userDetails.fullname, this.userDetails.email, this.summary, this.description, this.likes_count, this.imageUrl).subscribe(
+    this.blogService.updateBlog(this._id,this.title,this.subtitle, this.userDetails.fullname, this.userDetails.email, this.summary, this.description, this.likedBy, this.likes, this.dislikedBy, this.dislikes, this.imageUrl).subscribe(
       () => {
         this.router.navigate(['/userprofile'])
       }
