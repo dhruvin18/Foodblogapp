@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <div class="container">
   <div class="row">
-      <input class="input-field col-md-11" type="text" id="q" name="q" #q="ngModel" [(ngModel)]="model.q" placeholder="Search Restaurants" >
+      <input autocomplete="off" class="input-field col-md-11" type="text" id="q" name="q" #q="ngModel" [(ngModel)]="model.q" placeholder="Search Restaurants...." >
       <button class="btn black white-text btn-dark col-md-1" style="top: 8px; align-content: center; text-align: center; vertical-align: middle;padding-top: 0%" name="search" (click)="getSearchResults()"><i class="material-icons">search</i></button>
   </div>
       <!-- <h4>Search restaurant</h4> -->

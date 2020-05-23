@@ -1,10 +1,9 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3 offset-1">
-          <br><br>
-          <div class="widget_wrap position-fixed" style="width:360px;height:1500px;display:inline-block;"><iframe src="https://www.zomato.com/widgets/all_collections.php?city_id=3&theme=red&widgetType=custom" style="position:relative;width:100%;height:100%;" border="0" frameborder="0"></iframe></div>
+        <div class="col-md-3">
+          <div class="widget_wrap position-fixed" style="height:650px;display:inline-block;"><iframe src="https://www.zomato.com/widgets/all_collections.php?city_id=3&theme=red&widgetType=custom" style="position:relative;width:100%;height:100%;" frameborder="0"></iframe></div>
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-8">
             <div *ngFor="let blog of blogs">
                 <div class="card shadow my-5 border-0" >
                     <div class="row">
@@ -75,6 +74,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-1">
+
         </div>
     </div>
 </div>
