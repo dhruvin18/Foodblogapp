@@ -87,4 +87,14 @@ export class BlogService {
     }
     return this.http.put(url,temp);
   }
+
+  postComment(id: string, fullname : string, comment : string) {
+    const url = this.baseURL + '/blogs/comment';
+    const temp = {
+      id : id,
+      comment : comment,
+      fullname : fullname
+    }
+    return this.http.post(url,temp);
+  }
 }

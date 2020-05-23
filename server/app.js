@@ -219,6 +219,32 @@ router.route('/blogs/dislike/:id').put((req,res)=>{
     })
 })
 
+//Comment on Blog
+router.route('/blogs/comment').post((req,res)=>{
+    Blog.findById(req.body.id,(err,blog) => {
+        if(!blog){
+            return next(new Error('Could not load Document'))
+        }else{
+            console.log("FOUND BlOG");
+            console.log(blog);
+            // Add the new comment to the blog post's array
+            blog.comments.push({
+                comment: req.body.comment, // Comment field
+                commentator: req.body.fullname // Person who commented
+            });
+            // Save blog post
+            blog.save((err) => {
+                // Check if error was found
+                if (err) {
+                  res.json({ success: false, message: 'Something went wrong.' }); // Return error message
+                } else {
+                  res.json({ success: true, message: 'Comment saved' }); // Return success message
+                }
+            });
+        }
+    })
+})
+
 const ctrlUser=require('./controllers/user.controller')
 const jwtHelper=require('./config/jwtHelper');
 

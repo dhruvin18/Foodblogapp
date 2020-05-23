@@ -4,7 +4,7 @@
             <div class="card shadow my-5 border-0">
                 <a href="/home" class="text-left btn btn-raised btn-info"><i class="material-icons md-15">arrow_back_ios</i> Back to Home</a>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-5 content">
                         <img src="assets/static/{{ blog.image_url }}" class=" img-fluid " alt="...">
                     </div>
                     <div class="col-md-7">
@@ -25,6 +25,26 @@
                             <button type="button" class="btn btn-raised btn-danger active mr-3"> <i class="material-icons">thumb_down</i> : {{ blog.dislikes }} </button>
                         </div>
                     </div>
+                </div>
+                <!-- Show Comments -->
+                <li *ngIf="enabledComments.indexOf(blog._id) === -1 && blog.comments.length > 0" class="list-group-item">
+                    <span class="btn btn-block btn-raised" (click)="expand(blog._id)">
+                        Show comments <i class="material-icons md-18 ml-2">mode_comment</i>
+                    </span>
+                </li>
+
+                <!-- Hide Comments -->
+                <li *ngIf="enabledComments.indexOf(blog._id) > -1" class="list-group-item">
+                    <span class="btn btn-block btn-raised" (click)="collapse(blog._id)">
+                        Hide Comments <i class="material-icons md-18 ml-2">mode_comment</i>
+                    </span>
+                </li>
+        
+                <!-- Comment -->
+                <div *ngIf="enabledComments.indexOf(blog._id) > -1">
+                    <li *ngFor="let comment of blog.comments" class="list-group-item">
+                    <strong>{{ comment.commentator }}:</strong> {{ comment.comment }}
+                    </li>
                 </div>
             </div>
         </div>

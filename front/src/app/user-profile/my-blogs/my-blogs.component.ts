@@ -14,14 +14,11 @@ export class MyBlogsComponent implements OnInit {
 
   userDetails : any;
   blogs : Blog[]
+  enabledComments = [];
 
   constructor(private userService: UserService, private blogService : BlogService, private route: ActivatedRoute, private router: Router) {
     
   }
-
-  // model = {
-  //   data: '',
-  // };
 
   ngOnInit(): void {
     this.fetchSpecificBlogs()
@@ -71,6 +68,17 @@ export class MyBlogsComponent implements OnInit {
         this.fetchSpecificBlogs();
       });
     }
+  }
+
+  // Expand the list of comments
+  expand(id) {
+    this.enabledComments.push(id); // Add the current blog post id to array
+  }
+
+  // Collapse the list of comments
+  collapse(id) {
+    const index = this.enabledComments.indexOf(id); // Get position of id in array
+    this.enabledComments.splice(index, 1); // Remove id from array
   }
 
 }
