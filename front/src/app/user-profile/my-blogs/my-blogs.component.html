@@ -4,8 +4,8 @@
             <div *ngFor="let blog of blogs">
                 <div class="card shadow my-5 border-0">
                     <div class="row">
-                        <div class="col-md-5">
-                            <img src="assets/static/{{ blog.image_url }}" class=" img-fluid card-img-top" alt="...">
+                        <div class="col-md-5 content">
+                            <img src="assets/static/{{ blog.image_url }}" class=" img-fluid " alt="...">
                         </div>
                         <div class="col-md-7">
                             <div class="card-body">
@@ -20,18 +20,38 @@
                                 <div class="overflowTest">{{ blog.description }}</div>
                             </div>
                             <div class="card-footer">
-                                <h4><button type="button" class="btn btn-primary bmd-btn-fab active"> <i class="material-icons">thumb_up</i> </button>  : {{ blog.likes }}</h4> 
-                                <h4><button type="button" class="btn btn-warning bmd-btn-fab active"> <i class="material-icons">thumb_down</i> </button>  : {{ blog.dislikes }}</h4> 
                                 <div class="row">
                                     <div class="col-6">
+                                        <h4><button type="button" class="btn btn-primary bmd-btn-fab active"> <i class="material-icons">thumb_up</i> </button>  : {{ blog.likes }}</h4> 
                                         <button class="btn btn-raised btn-block btn-info mt-5 mr-3" (click)="editBlog(blog._id)">Edit</button>
                                     </div>
                                     <div class="col-6">
+                                        <h4><button type="button" class="btn btn-warning bmd-btn-fab active"> <i class="material-icons">thumb_down</i> </button>  : {{ blog.dislikes }}</h4> 
                                         <button class="btn btn-raised btn-block btn-danger mt-5" (click)="deleteBlog(blog._id)">Delete</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- Show Comments -->
+                    <li *ngIf="enabledComments.indexOf(blog._id) === -1 && blog.comments.length > 0" class="list-group-item">
+                        <span class="btn btn-block btn-raised" (click)="expand(blog._id)">
+                            Show comments <i class="material-icons md-18 ml-2">mode_comment</i>
+                        </span>
+                    </li>
+
+                    <!-- Hide Comments -->
+                    <li *ngIf="enabledComments.indexOf(blog._id) > -1" class="list-group-item">
+                        <span class="btn btn-block btn-raised" (click)="collapse(blog._id)">
+                            Hide Comments <i class="material-icons md-18 ml-2">mode_comment</i>
+                        </span>
+                    </li>
+            
+                    <!-- Comment -->
+                    <div *ngIf="enabledComments.indexOf(blog._id) > -1">
+                        <li *ngFor="let comment of blog.comments" class="list-group-item">
+                        <strong>{{ comment.commentator }}:</strong> {{ comment.comment }}
+                        </li>
                     </div>
                 </div>
             </div>

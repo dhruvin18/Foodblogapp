@@ -12,4 +12,5 @@ export interface Blog {
   dislikes: Number;
   timestamp: Date;
   image_url: string;
+  comments:Array<any>
 }

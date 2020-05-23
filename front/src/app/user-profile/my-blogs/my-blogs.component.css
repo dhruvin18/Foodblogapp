@@ -3,4 +3,11 @@ div.overflowTest {
     overflow: hidden;
     word-wrap: break-word;
     white-space: pre-wrap 
-  }
+}
+i{ vertical-align: middle !important; }
+
+.content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}

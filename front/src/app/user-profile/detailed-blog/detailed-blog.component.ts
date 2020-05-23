@@ -12,6 +12,7 @@ export class DetailedBlogComponent implements OnInit {
 
   _id: string;
   blog: Blog;
+  enabledComments = [];
 
   constructor(private blogService: BlogService, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
@@ -30,5 +31,16 @@ export class DetailedBlogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  // Expand the list of comments
+  expand(id) {
+    this.enabledComments.push(id); // Add the current blog post id to array
+  }
+
+  // Collapse the list of comments
+  collapse(id) {
+    const index = this.enabledComments.indexOf(id); // Get position of id in array
+    this.enabledComments.splice(index, 1); // Remove id from array
   }
 }

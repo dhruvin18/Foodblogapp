@@ -42,7 +42,11 @@ let Blog = new Schema ({
     },
     image_url: {
         type: String
-    }
+    },
+    comments: [{
+        comment : {type: String},
+        commentator : {type : String}
+    }]
 })
 
 module.exports = mongoose.model('Blog', Blog)
