@@ -9,15 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./restaurant.component.css']
 })
 export class RestaurantComponent implements OnInit {
-
   restaurants: Restaurant[];
-
+  search = 'Delhi';
   constructor(private restaurantService: RestaurantService, private router: Router) { }
+
+  model = {
+    q: ''
+  };
 
   ngOnInit(): void {
     this.restaurantService.getAllRestaurants().subscribe((data: Restaurant[]) => {
       this.restaurants = data;
     });
+    // this.restaurantService.getSearchResults(this.search).subscribe((data: Restaurant[]) => {
+    //   this.restaurants = data;
+    // });
   }
   displayMore(id: string) {
     console.log(id);
@@ -27,6 +33,11 @@ export class RestaurantComponent implements OnInit {
         }
     };
     this.router.navigate(['restaurant'], navigationExtras);
+  }
+  getSearchResults() {
+    this.restaurantService.getSearchResults(this.model.q).subscribe((data: Restaurant[]) => {
+      this.restaurants = data;
+    });
   }
 
 }

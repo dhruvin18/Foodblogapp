@@ -301,6 +301,40 @@ app.get('/makeApiCall', (req,res)=> {
     });
 });
 
+app.get('/search/:q', (req,res)=> {
+    const q=req.params.q;
+    request( {'headers': header,'url': 'https://developers.zomato.com/api/v2.1/search?entity_id=3&entity_type=city&q='+q, json: true}, (err,response,body) => {
+    if(err){
+        console.log(err);
+        res.send(err);
+    }
+    else{
+        const list=[];
+        data=body['restaurants'];
+        // console.log(data);
+        for(i=0; i<20;i++){
+            restaurant=data[i]['restaurant'];
+            var resto=new Restaurant();
+            resto._id= restaurant['id'],
+            resto.name= restaurant['name'],
+            resto.cuisines= restaurant['cuisines'],
+            resto.address= restaurant['location']['address'],
+            resto.timings= restaurant['timings'],
+            resto.costfortwo= restaurant['average_cost_for_two'], 
+            resto.locality= restaurant['location']['locality_verbose'],
+            resto.url= restaurant['url'],
+            resto.highlights= restaurant['highlights'],
+            resto.image= restaurant['thumb'],
+            resto.phoneNumbers= restaurant['phone_numbers'],
+            resto.rating = restaurant['user_rating']['aggregate_rating'],
+            resto.establishment= restaurant['establishment']
+            list.push(resto);   
+        }
+        console.log(list);
+        res.send(list);
+    }
+    });
+});
 //file upload in newblog form
 const multer=require('multer');
 var filename;

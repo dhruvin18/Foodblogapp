@@ -14,4 +14,7 @@ export class RestaurantService {
   getRestaurant(id: string) {
     return this.http.get('http://localhost:3000/restaurant/' + id);
   }
+  getSearchResults(id: string) {
+    return this.http.get('http://localhost:3000/search/' + id);
+  }
 }
