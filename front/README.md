@@ -1,27 +1,65 @@
-# Front
+# Food blogging website 
+### using MEAN stack 
+___
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
+Following is a quick guide to use this MEAN stack application
 
-## Development server
+### To start the server
+```
+cd server
+node app.js
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### To launch the website
+```
+cd front
+ng serve --open
+```
+___
 
-## Code scaffolding
+### Sign-up and Sign-in Page
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![SignUp](https://drive.google.com/uc?export=view&id=1BVgvzUnUBsdqpFKvzWAsvr7RPIXzz3c4 "SignUp")
 
-## Build
+![SignIn](https://drive.google.com/uc?export=view&id=1ZltzIgZRBBNh97MwF8RHf1Nm4Kbo4fGK "SignIn")
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The Sign up and Sign in Page support form validation as shown.After successful login the user is directed to Home page
 
-## Running unit tests
+### Home Page
+![Home](https://drive.google.com/uc?export=view&id=1oELeNylVS9g4zdznRV9pskL8I3woFXfd "Home" )
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The Home contains the list of blogs from all the users of the application displayed in the form of cards.
 
-## Running end-to-end tests
+The left side of the home page contains a Zomato widget displaying the restaurants near your location
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+#### Like, Dislike and Comment button
+Each blog has a **Like** and **Dislike** button. User can either like a blog or dislike a button at a time and not both
 
-## Further help
+Each blog also has a **Post Comment** button. User can type a comment and click on submit button to post it.
+There is Show comments/Hide comments button to toggle between the views
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![Like](https://drive.google.com/uc?export=view&id=1HOhZ0VtqHSnosavzewEzA-lBz6Q47kwd "Likes,Comment")
+
+### New Blog Tab
+![NewBlog](https://drive.google.com/uc?export=view&id=1tD1KCJd89KINgLKvweuEm-EphqcsyK1z "New Blog")
+
+Here the user can fill the details related to the blog along with an image to be displayed and submit the form 
+The information is stored in MongoDB 
+
+### My Blogs Tab
+![MyBlog](https://drive.google.com/uc?export=view&id=1uHgOMm36j2cg_PAjSwRZwEQ3MGhbxaRa "My Blogs")
+
+The list of blogs written by the currently signed-in user are displayed here
+There are special privileges here such as **Edit button** and **Delete button**
+
+![Edit](https://drive.google.com/uc?export=view&id=17wZcC7bp3I5fMN1OG2TO2hcOrCLyyN-a "Edit BLog")
+
+![Delete](https://drive.google.com/uc?export=view&id=1sN4yZLSiwfTa1yvhGKqV8a0lS451GTWr "Delete Blog")
+
+### Restaurants Tab
+
+This tab display list of different restaurants near you. Clicking on any card will show more details about it.
+
+There is **Search bar** provided to search for restaurants related to a particular food item.
+
+![Restaurants](https://drive.google.com/uc?export=view&id=1vCJKGR05dL7VIuzQD-_D6hSJs2r8tSw1 "Restaurants")
